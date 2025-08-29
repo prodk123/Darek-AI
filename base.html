@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Darek AI{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/weather_music_cards.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Darek AI</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Main</h4>
+                    <a href="{{ url_for('chat_page') }}" class="nav-item"><i class="fas fa-comments"></i> Chat Assistant</a>
+                    <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Productivity</h4>
+                    <a href="#" class="nav-item" data-feature="reminders"><i class="fas fa-bell"></i> Reminders</a>
+                    <a href="#" class="nav-item" data-feature="timers"><i class="fas fa-stopwatch"></i> Timers</a>
+                    <a href="#" class="nav-item" data-feature="calendar"><i class="fas fa-calendar-alt"></i> Calendar</a>
+                    <a href="#" class="nav-item" data-feature="notes"><i class="fas fa-sticky-note"></i> Notes</a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Lists & Tasks</h4>
+                    <a href="#" class="nav-item" data-feature="todo"><i class="fas fa-tasks"></i> To-Do List</a>
+                    <a href="#" class="nav-item" data-feature="shopping"><i class="fas fa-shopping-cart"></i> Shopping List</a>
+                    <a href="#" class="nav-item" data-feature="habits"><i class="fas fa-chart-line"></i> Habit Tracker</a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4>INFORMATION</h4>
+                    <a href="#" class="nav-item" data-feature="search">
+                        <i class="fas fa-search"></i>
+                        <span>Web Search</span>
+                    </a>
+                    <a href="#" class="nav-item" data-feature="weather">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span>Weather</span>
+                    </a>
+                    <a href="#" class="nav-item" data-feature="news">
+                        <i class="fas fa-newspaper"></i>
+                        <span>News</span>
+                    </a>
+                    <a href="#" class="nav-item" data-feature="calculator">
+                        <i class="fas fa-calculator"></i>
+                        <span>Calculator</span>
+                    </a>
+                    <a href="#" class="nav-item" data-feature="translator">
+                        <i class="fas fa-language"></i>
+                        <span>Translator</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Entertainment</h4>
+                    <a href="#" class="nav-item" data-feature="music"><i class="fas fa-music"></i> Music</a>
+                    <a href="#" class="nav-item" data-feature="jokes"><i class="fas fa-laugh"></i> Jokes</a>
+                    <a href="#" class="nav-item" data-feature="trivia"><i class="fas fa-question-circle"></i> Trivia</a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4 class="nav-section-title">Settings</h4>
+                    <button id="theme-toggle" class="theme-toggle-btn">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                        <span id="theme-text">Dark Mode</span>
+                    </button>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                {% if session.user_id %}
+                    <a href="{{ url_for('logout') }}" class="nav-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="nav-item"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="{{ url_for('register') }}" class="nav-item"><i class="fas fa-user-plus"></i> Register</a>
+                {% endif %}
+            </div>
+        </aside>
+        <main class="main-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/speech.js') }}"></script>
+</body>
+</html>
