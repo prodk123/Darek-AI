@@ -126,7 +126,7 @@ darek-ai-assistant/
 │   ├── index.html       # Chat interface
 │   ├── dashboard.html   # User dashboard
 │   ├── login.html       # Login page
-│   └── register.html    # Registration page
+│   └── signup.html    # Registration page
 └── instance/
     └── darek_ai.db      # SQLite database (auto-created)
 ```
